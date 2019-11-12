@@ -4,7 +4,7 @@ import { DatatableComponent } from './datatable/datatable.component';
 
 
 const routes: Routes = [{
-  path: "**",
+  path: '**',
   component: DatatableComponent
 }];
 

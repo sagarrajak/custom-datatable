@@ -16,6 +16,13 @@
     height: auto;
     display: flex;
     justify-content: space-between;
+    .search-bar {
+      width: 500px;
+      display: flex;
+      justify-items: space-between;
+      flex-direction: row;
+      align-items: center;
+    }
   }
   .pagination {
       a {

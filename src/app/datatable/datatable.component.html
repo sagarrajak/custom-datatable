@@ -1,7 +1,14 @@
 <div class="custom-table">
   <div class="search-container">
-      <h4 class='table-header'>Simple Table</h4>
-      <input type="text"  placeholder="search" [formControl]='searchControl' />
+      <div class="search-bar">
+          <h4 class='table-header'>Simple Table</h4>
+          <div>
+              <input type="text"  placeholder="search" [formControl]='searchControl' />
+          </div>
+      </div>
+      <div>
+          <button (click)="showDialog()">Add Employee</button>
+      </div>
   </div>
   <div class="custom-table">
     <custom-table-row-header
@@ -29,3 +36,7 @@
     </div>
   </div>
 </div>
+<custom-add-employee
+[visible]='showAddEmployeeDialog'
+(modelClose)="showAddEmployeeDialog=false"
+></custom-add-employee>

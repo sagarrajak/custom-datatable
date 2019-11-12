@@ -24,6 +24,8 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
   public paginationList: number[] = [];
   public paginationListSlice: number[] = [];
 
+  public showAddEmployeeDialog: boolean = false;
+
   ngOnInit() {
     this.subscription =
       this.http.get<IEmployee[][]>('https://my-json-server.typicode.com/darshanp40/employeedb/employees')
@@ -151,6 +153,10 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.activePaginationIndex = i;
     this.listEmployee = this.backupListEmployee.slice( i * 10 - 10 , i * 10);
     console.log(i * 10 - 10 , i * 10);
+  }
+
+  public showDialog(): void {
+    this.showAddEmployeeDialog = true;
   }
 
 }
