@@ -1,5 +1,8 @@
 <div class="custom-table">
-  <h4 class='table-header'>Simple Table</h4>
+  <div class="search-container">
+      <h4 class='table-header'>Simple Table</h4>
+      <input type="text"  placeholder="search" [formControl]='searchControl' />
+  </div>
   <div class="custom-table">
     <custom-table-row-header
       (id)="sortFunction($event, 'id')"

@@ -1,25 +1,30 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IEmployee, IHeaders } from '../types';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
+import { debounceTime, map, distinctUntilChanged, filter } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'custom-main-datatable',
   templateUrl: './datatable.component.html',
   styleUrls: ['./datatable.component.scss']
 })
-export class DatatableComponent implements OnInit, OnDestroy {
+export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private http: HttpClient) { }
 
   private subscription: Subscription;
   public listEmployee: IEmployee[] = [];
+  public backupListEmployee: IEmployee[] = [];
+  public searchControl = new FormControl();
 
   ngOnInit() {
     this.subscription =
       this.http.get<IEmployee[][]>('https://my-json-server.typicode.com/darshanp40/employeedb/employees')
         .subscribe(res => {
           this.listEmployee = [...res[0], ...res[0], ...res[0], ...res[0], ...res[0]];
+          this.backupListEmployee = [...this.listEmployee];
         }, err => {
           console.error(err);
         });
@@ -54,6 +59,31 @@ export class DatatableComponent implements OnInit, OnDestroy {
       }
       return 1;
     })];
+  }
+
+  ngAfterViewInit(): void {
+    this.searchControl
+    .valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        map(data => (data).trim().toLowerCase())
+       ).subscribe(query => {
+          if (query) {
+              this.listEmployee =  [...this.listEmployee.filter((employee: IEmployee) => {
+                if (String(employee.id).toLowerCase().indexOf(query) !== -1 ) { return true; }
+                if (String(employee.jobTitleName).toLowerCase().indexOf(query) !== -1 ) { return true; }
+                if (String(employee.firstName + ' ' + employee.lastName).toLowerCase().indexOf(query) !== -1 ) { return true; }
+                if (String(employee.phoneNumber).toLowerCase().indexOf(query) !== -1 ) { return true; }
+                if (String(employee.emailAddress).toLowerCase().indexOf(query) !== -1 ) { return true; }
+                if (String(employee.region).toLowerCase().indexOf(query) !== -1 ) { return true; }
+                if (String(employee.dob).toLowerCase().indexOf(query) !== -1 ) { return true; }
+                return false;
+              })];
+          } else {
+            this.listEmployee = [...this.backupListEmployee];
+          }
+       });
   }
 
   ngOnDestroy(): void {
