@@ -27,32 +27,32 @@ export class TableRowHeaderComponent {
     console.log('click', id);
     switch (id) {
       case 'id':
-        this.idSortFlag *= -1;
         this.id.emit(this.idSortFlag);
+        this.idSortFlag *= -1;
         break;
       case 'job_title':
-        this.jobSortingFlag *= -1;
         this.jobTitle.emit(this.jobSortingFlag);
+        this.jobSortingFlag *= -1;
         break;
       case 'full_name':
-        this.fullNameSortingFlag *= -1;
         this.fullName.emit(this.fullNameSortingFlag);
+        this.fullNameSortingFlag *= -1;
         break;
       case 'phone_number':
-        this.phoneNumberSortingFlag *= -1;
         this.phoneNumber.emit(this.phoneNumberSortingFlag);
+        this.phoneNumberSortingFlag *= -1;
         break;
       case 'email':
-        this.emailSortingFlag *= -1;
         this.email.emit(this.emailSortingFlag);
+        this.emailSortingFlag *= -1;
         break;
       case 'region':
-        this.regionSortingFlag *= -1;
         this.region.emit(this.regionSortingFlag);
+        this.regionSortingFlag *= -1;
         break;
       case 'dob':
-        this.dateOFBirthSortingFlag *= -1;
         this.dateOfBirth.emit(this.dateOFBirthSortingFlag);
+        this.dateOFBirthSortingFlag *= -1;
         break;
     }
   }

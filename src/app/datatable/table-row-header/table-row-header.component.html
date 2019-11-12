@@ -1,10 +1,33 @@
 <div class='custum-table-row-header'>
-  <div class="custum-table-header-block" (click)="handleHeaderClick('id')">id</div>
-  <div class="custum-table-header-block" (click)="handleHeaderClick('job_title')">Job Title</div>
-  <div class="custum-table-header-block" (click)="handleHeaderClick('full_name')">Full Name</div>
-  <div class="custum-table-header-block" (click)="handleHeaderClick('phone_number')">Phone Number</div>
-  <div class="custum-table-header-block" (click)="handleHeaderClick('email')">Email</div>
-  <div class="custum-table-header-block" (click)="handleHeaderClick('region')">Region</div>
-  <div class="custum-table-header-block" (click)="handleHeaderClick('dob')">DOB</div>
+  <div class="custum-table-header-block" (click)="handleHeaderClick('id')">id
+    <i class="fa fa-arrow-down" aria-hidden="true" *ngIf="idSortFlag===1"></i>
+    <i class="fa fa-arrow-up" aria-hidden="true" *ngIf="idSortFlag===-1"></i>
+  </div>
+  <div class="custum-table-header-block" (click)="handleHeaderClick('job_title')">Job Title
+    <i class="fa fa-arrow-down" aria-hidden="true" *ngIf="jobSortingFlag===1"></i>
+    <i class="fa fa-arrow-up" aria-hidden="true" *ngIf="jobSortingFlag===-1"></i>
+  </div>
+  <div class="custum-table-header-block" (click)="handleHeaderClick('full_name')">Full Name
+    <i class="fa fa-arrow-down" aria-hidden="true" *ngIf="fullNameSortingFlag===1"></i>
+    <i class="fa fa-arrow-up" aria-hidden="true" *ngIf="fullNameSortingFlag===-1"></i>
+  </div>
+  <div class="custum-table-header-block" (click)="handleHeaderClick('phone_number')">Phone Number
+    <i class="fa fa-arrow-down" aria-hidden="true" *ngIf="phoneNumberSortingFlag===1"></i>
+    <i class="fa fa-arrow-up" aria-hidden="true" *ngIf="phoneNumberSortingFlag===-1"></i>
+  </div>
+  <div class="custum-table-header-block" (click)="handleHeaderClick('email')">Email
+    <i class="fa fa-arrow-down" aria-hidden="true" *ngIf="emailSortingFlag===1"></i>
+    <i class="fa fa-arrow-up" aria-hidden="true" *ngIf="emailSortingFlag===-1"></i>
+  </div>
+  <div class="custum-table-header-block" (click)="handleHeaderClick('region')">
+    Region
+    <i class="fa fa-arrow-down" aria-hidden="true" *ngIf="regionSortingFlag===1"></i>
+    <i class="fa fa-arrow-up" aria-hidden="true" *ngIf="regionSortingFlag===-1"></i>
+  </div>
+  <div class="custum-table-header-block" (click)="handleHeaderClick('dob')">
+      DOB
+      <i class="fa fa-arrow-down" aria-hidden="true" *ngIf="dateOFBirthSortingFlag===1"></i>
+      <i class="fa fa-arrow-up" aria-hidden="true" *ngIf="dateOFBirthSortingFlag===-1"></i>
+  </div>
   <div class="custum-table-header-block">Action</div>
 </div>
