@@ -20,9 +20,12 @@
         </custom-table-row>
     </div>
     <div class="pagination">
-        <a href="#">&laquo;</a>
-        <a href="#" *ngFor="let i of paginationList" [ngClass]="{'active-class': i=== activePaginationIndex }">{{i}}</a>
-        <a href="#">&laquo;</a>
+        <a href="#" (click)="setPaginationBackWard()">&laquo;</a>
+        <a href="#" *ngFor="let i of paginationListSlice"
+          [ngClass]="{'active-class': i=== activePaginationIndex }"
+          (click)="setCurrentPagination(i)"
+          >{{i}}</a>
+        <a href="#" (click)="setPaginationForward()">&raquo;</a>
     </div>
   </div>
 </div>
