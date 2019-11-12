@@ -19,5 +19,10 @@
           [employee]="employee" >
         </custom-table-row>
     </div>
+    <div class="pagination">
+        <a href="#">&laquo;</a>
+        <a href="#" *ngFor="let i of paginationList" [ngClass]="{'active-class': i=== activePaginationIndex }">{{i}}</a>
+        <a href="#">&laquo;</a>
+    </div>
   </div>
 </div>

@@ -18,6 +18,8 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
   public listEmployee: IEmployee[] = [];
   public backupListEmployee: IEmployee[] = [];
   public searchControl = new FormControl();
+  public activePaginationIndex: number = 1;
+  public paginationList: number[] = [];
 
   ngOnInit() {
     this.subscription =
@@ -25,6 +27,13 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
         .subscribe(res => {
           this.listEmployee = [...res[0], ...res[0], ...res[0], ...res[0], ...res[0]];
           this.backupListEmployee = [...this.listEmployee];
+          if (this.listEmployee.length > 10) {
+            for (let i = 0, j = 1; i < this.listEmployee.length; i += 10) {
+              this.paginationList.push(j++);
+            }
+          } else {
+            this.paginationList.push(1);
+          }
         }, err => {
           console.error(err);
         });
