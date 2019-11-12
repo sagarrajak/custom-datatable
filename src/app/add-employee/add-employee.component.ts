@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'custom-add-employee',
@@ -12,10 +13,20 @@ export class AddEmployeeComponent {
 
   @Input('visible')
   set visibility(value: boolean) {
-    console.log('employee');
-    this.isVisible = value
-    ;
+    this.isVisible = value;
   }
+
+  public employeeForm = new FormGroup({
+    id: new FormControl(''),
+    jobTitleName: new FormControl(''),
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    preferredFullName: new FormControl(''),
+    region: new FormControl(''),
+    dob: new FormControl(''),
+    phoneNumber: new FormControl(''),
+    emailAddress: new FormControl(''),
+  });
 
   public hide(): void {
     this.isVisible = false;
