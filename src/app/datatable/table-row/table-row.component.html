@@ -1,10 +1,14 @@
 <div class='custum-table-row'>
-  <div class="custum-table-block">id</div>
-  <div class="custum-table-block">Job Title</div>
-  <div class="custum-table-block">Full Name</div>
-  <div class="custum-table-block">Phone Number</div>
-  <div class="custum-table-block">Email</div>
-  <div class="custum-table-block">Region</div>
-  <div class="custum-table-block">DOB</div>
-  <div class="custom-table-block">Action</div>
+  <div class="custom-table-block">{{employee.id}}</div>
+  <div class="custom-table-block">{{employee.jobTitleName}} </div>
+  <div class="custom-table-block">{{employee.firstName+" "+employee.lastName}}</div>
+  <div class="custom-table-block">{{employee.phoneNumber}}</div>
+  <div class="custom-table-block">{{employee.phoneNumber}}</div>
+  <div class="custom-table-block">{{employee.region}}</div>
+  <div class="custom-table-block">{{employee.dob}}</div>
+  <div class="custom-table-block">
+    <button>edit</button>
+    <button>view</button>
+    <button>delete</button>
+  </div>
 </div>

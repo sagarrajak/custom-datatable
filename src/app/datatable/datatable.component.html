@@ -1,20 +1,20 @@
 <div class="custom-table">
-  <h4>Simple Table</h4>
+  <h4 class='table-header'>Simple Table</h4>
   <div class="custom-table">
-    <custom-table-row-header></custom-table-row-header>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
-    <custom-table-row></custom-table-row>
+    <custom-table-row-header
+      (id)="sortFunction($event, 'id')"
+      (jobTitle)="sortFunction($event, 'job_title')"
+      (fullName)="sortFunction($event, 'full_name')"
+      (phoneNumber)="sortFunction($event, 'phone_number')"
+      (email)="sortFunction($event, 'email')"
+      (region)="sortFunction($event, 'region')"
+      (dateOfBirth)="sortFunction($event, 'dob')"
+    ></custom-table-row-header>
+    <div class="custom-table-data">
+        <custom-table-row
+          *ngFor="let employee of listEmployee"
+          [employee]="employee" >
+        </custom-table-row>
+    </div>
   </div>
 </div>

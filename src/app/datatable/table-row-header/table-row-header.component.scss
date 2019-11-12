@@ -2,7 +2,6 @@
   display: flex;
   width: 100%;
   flex-direction: row;
-  justify-content: space-around;
   height: 60px;
   align-items: center;
   border-top: 1px solid #ddd;
@@ -11,5 +10,10 @@
   .custum-table-header-block {
     font-weight: 800;
     font-size: 1rem;
+    padding: 8px;
+    width: (100%/9);
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

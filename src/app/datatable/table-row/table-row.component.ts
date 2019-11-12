@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IEmployee } from 'src/app/types';
 
 @Component({
   selector: 'custom-table-row',
@@ -8,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class TableRowComponent implements OnInit {
 
   constructor() { }
-
+  @Input('employee') employee: IEmployee;
+  @Output('edit') edit = new EventEmitter();
+  @Output('view') view = new EventEmitter();
+  @Output('delete') delete = new EventEmitter();
   ngOnInit() {
   }
 
