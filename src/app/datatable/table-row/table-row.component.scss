@@ -1,0 +1,13 @@
+.custum-table-row {
+   display: flex;
+   width: 100%;
+   flex-direction: row;
+   justify-content: space-around;
+   align-items: center;
+   border-top: 1px solid #ddd;
+   border-bottom:  1px solid #ddd;
+   flex-wrap: wrap;
+   .custom-table-block {
+     padding: 8px;
+   }
+}
