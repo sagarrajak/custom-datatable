@@ -5,6 +5,7 @@ import { Subscription, fromEvent } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged, filter } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'custom-main-datatable',
@@ -13,11 +14,13 @@ import * as moment from 'moment';
 })
 export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private employeeService: EmployeeService) {}
 
   private subscription: Subscription;
   public listEmployee: IEmployee[] = []; // table which is currenty vissible
-  public backupListEmployee: IEmployee[] = []; // cached version of table
+  public backupListEmployee: IEmployee[] = []; // cached version of table for seaching
   public searchBackupEmployee: IEmployee[] = []; // a backup version for search
   public searchControl = new FormControl();
 
@@ -34,6 +37,7 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
         .subscribe(res => {
           this.backupListEmployee = [...res[0]];
           this.searchBackupEmployee = [...this.backupListEmployee];
+          this.employeeService.Employee = this.searchBackupEmployee;
           this.setPaginationFirstTime();
         }, err => {
           console.error(err);
@@ -41,6 +45,7 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private setPaginationFirstTime(): void {
+    this.paginationList = [];
     if (this.backupListEmployee.length > 10) {
       for (let i = 0, j = 1; i < this.backupListEmployee.length; i += 10) {
         this.paginationList.push(j++);
@@ -53,6 +58,7 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.paginationListSlice = [...this.paginationList];
     }
+    this.employeeService.Employee = this.searchBackupEmployee;
     this.setCurrentPagination(1); // first time setting up pagination
   }
 

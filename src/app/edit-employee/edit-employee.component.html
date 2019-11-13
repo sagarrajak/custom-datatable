@@ -10,6 +10,7 @@
               [ngClass]="{'error': isValid('id')}" formControlName="id" />
               <ng-container *ngIf="form('id').invalid && (form('id').dirty || form('id').touched)">
                 <p class="error-message" *ngIf="form('id').errors.required">Field Required</p>
+                <p class="error-message" *ngIf="form('id').errors.validId">Id Alreay There, choose unique</p>
               </ng-container>
           </div>
           <div class="grid-4">
@@ -48,6 +49,7 @@
                 />
               <ng-container *ngIf="form('emailAddress').invalid && (form('emailAddress').dirty || form('emailAddress').touched)">
                 <p class="error-message" *ngIf="form('emailAddress').errors.required">Field Required</p>
+                <p class="error-message" *ngIf="form('emailAddress').errors.email">Invalid  Email</p>
               </ng-container>
           </div>
           <div class="grid-5">

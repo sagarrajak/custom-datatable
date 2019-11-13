@@ -1,6 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { IEmployee } from '../types';
+import { EmployeeService } from '../employee.service';
+
+
+const validateId = function(control: AbstractControl) {
+  if (this.employeeService.isIdPresent(control.value)) {
+    return { validId: true };
+  }
+  return null;
+};
 
 @Component({
   selector: 'custom-edit-employee',
@@ -8,40 +17,45 @@ import { IEmployee } from '../types';
   styleUrls: ['./edit-employee.component.scss']
 })
 export class EditEmployeeComponent {
+
+  constructor(private employeeService: EmployeeService) {}
+
   public isVisible: boolean = true;
   @Output() editCancel = new EventEmitter();
   @Output() employeeEditSuccess = new EventEmitter<IEmployee>();
   public isApiCallInProgress: boolean = false;
-  public currentEmployee: IEmployee|null = null;
+  public currentEmployee: IEmployee | null = null;
 
   @Input('currentEmployee')
-  set visibility(value: IEmployee|null) {
+  set visibility(value: IEmployee | null) {
     if (value) {
       this.isVisible = true;
       this.employeeForm.reset();
       this.currentEmployee = value;
       Object.keys(this.employeeForm.controls)
-      .forEach((key: string) => {
+        .forEach((key: string) => {
           if (this.currentEmployee[key]) {
             this.employeeForm.get(key).setValue(this.currentEmployee[key]);
           } else {
             this.employeeForm.get(key).setValue('');
           }
-      });
+        });
     } else {
       this.isVisible = false;
     }
   }
 
   public employeeForm = new FormGroup({
-    id: new FormControl('', [Validators.required]),
+    id: new FormControl('', [Validators.required, validateId.bind(this) ]),
     jobTitleName: new FormControl('', [Validators.required]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     region: new FormControl('', [Validators.required]),
     dob: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
-    emailAddress: new FormControl('', [Validators.required]),
+    emailAddress: new FormControl('', [Validators.required, Validators.email]),
+  }, {
+    updateOn: 'change',
   });
 
   public form(control: string): any {
