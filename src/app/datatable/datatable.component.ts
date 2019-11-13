@@ -32,13 +32,7 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscription =
       this.http.get<IEmployee[][]>('https://my-json-server.typicode.com/darshanp40/employeedb/employees')
         .subscribe(res => {
-          this.backupListEmployee = [...res[0], ...res[0], ...res[0],
-          ...res[0], ...res[0], ...res[0], ...res[0], ...res[0],
-          ...res[0], ...res[0], ...res[0], ...res[0], ...res[0],
-          ...res[0], ...res[0], ...res[0], ...res[0], ...res[0],
-          ...res[0], ...res[0], ...res[0], ...res[0], ...res[0],
-          ...res[0], ...res[0], ...res[0], ...res[0], ...res[0],
-          ...res[0], ...res[0], ...res[0], ...res[0]];
+          this.backupListEmployee = [...res[0]];
           this.searchBackupEmployee = [...this.backupListEmployee];
           this.setPaginationFirstTime();
         }, err => {
