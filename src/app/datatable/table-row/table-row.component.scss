@@ -6,8 +6,12 @@
    border-top: 1px solid #ddd;
    border-bottom:  1px solid #ddd;
    flex-wrap: wrap;
+   justify-content: space-around;
    .custom-table-block {
      padding: 8px;
-     width: (98%/9);
+     width: (98%/10);
+     overflow: hidden;
+     align-self: center;
+     word-wrap: break-word;
    }
 }

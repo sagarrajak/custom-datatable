@@ -3,42 +3,86 @@
     <div class="grid-10">
       <h4>Add Employee</h4>
     </div>
-    <div class="grid-5">
-        <label>ID</label>
-        <input placeholder="Id"  type="number" />
-    </div>
-    <div class="grid-4">
-        <label>First Name</label>
-        <input placeholder="First Name"  type="text" />
-    </div>
-    <div class="grid-4">
-        <label>Last Name</label>
-        <input placeholder="Last Name"  type="text" />
-    </div>
-    <div class="grid-5">
-        <label>Job Tile</label>
-        <input placeholder="Job Title"  type="text" />
-    </div>
-    <div class="grid-5">
-        <label>Email</label>
-        <input placeholder="Email"  type="text" />
-    </div>
-    <div class="grid-5">
-        <label>Phone Number</label>
-        <input placeholder="Phone Number"  type="text" />
-    </div>
-    <div class="grid-5">
-        <label>Region</label>
-        <input placeholder="Region"  type="text" />
-    </div>
-    <div class="grid-5">
-        <label>DOB</label>
-        <input placeholder="Date of birth"  type="date" />
-    </div>
+    <form [formGroup]='employeeForm' class="row">
+        <div class="grid-5">
+            <label>ID</label>
+            <input placeholder="Id"  type="number"
+            [ngClass]="{'error': isValid('id')}" formControlName="id" />
+            <ng-container *ngIf="form('id').invalid && (form('id').dirty || form('id').touched)">
+              <p class="error-message" *ngIf="form('id').errors.required">Field Required</p>
+            </ng-container>
+        </div>
+        <div class="grid-4">
+            <label>First Name</label>
+            <input placeholder="First Name"
+              [ngClass]="{'error': isValid('firstName')}"
+              type="text" formControlName="firstName" />
+            <ng-container *ngIf="form('firstName').invalid && (form('firstName').dirty || form('firstName').touched)">
+              <p class="error-message" *ngIf="form('firstName').errors.required">Field Required</p>
+            </ng-container>
+        </div>
+        <div class="grid-4">
+            <label>Last Name</label>
+            <input placeholder="Last Name"
+            [ngClass]="{'error': isValid('lastName')}"
+             type="text"  formControlName="lastName" />
+            <ng-container *ngIf="form('lastName').invalid && (form('lastName').dirty || form('lastName').touched)">
+              <p class="error-message" *ngIf="form('lastName').errors.required">Field Required</p>
+            </ng-container>
+        </div>
+        <div class="grid-5">
+            <label>Job Tile</label>
+            <input placeholder="Job Title"
+            [ngClass]="{'error': isValid('jobTitleName')}"
+            type="text"  formControlName="jobTitleName" />
+            <ng-container *ngIf="form('jobTitleName').invalid && (form('jobTitleName').dirty || form('jobTitleName').touched)">
+              <p class="error-message" *ngIf="form('jobTitleName').errors.required">Field Required</p>
+            </ng-container>
+        </div>
+        <div class="grid-5">
+            <label>Email</label>
+            <input placeholder="Email"
+              type="text"
+              [ngClass]="{'error': isValid('emailAddress')}"
+              formControlName="emailAddress"
+              />
+            <ng-container *ngIf="form('emailAddress').invalid && (form('emailAddress').dirty || form('emailAddress').touched)">
+              <p class="error-message" *ngIf="form('emailAddress').errors.required">Field Required</p>
+            </ng-container>
+        </div>
+        <div class="grid-5">
+            <label>Phone Number</label>
+            <input placeholder="Phone Number"
+            [ngClass]="{'error': isValid('phoneNumber')}"
+            type="text" formControlName="phoneNumber" />
+            <ng-container *ngIf="form('phoneNumber').invalid && (form('phoneNumber').dirty || form('phoneNumber').touched)">
+              <p class="error-message" *ngIf="form('phoneNumber').errors.required">Field Required</p>
+            </ng-container>
+        </div>
+        <div class="grid-5">
+            <label>Region</label>
+            <input placeholder="Region"
+            [ngClass]="{'error': isValid('region')}"
+            type="text" formControlName="region" />
+            <ng-container *ngIf="form('region').invalid && (form('region').dirty || form('region').touched)">
+              <p class="error-message" *ngIf="form('region').errors.required">Field Required</p>
+            </ng-container>
+        </div>
+        <div class="grid-5">
+            <label>DOB</label>
+            <input placeholder="Date of birth"
+            [ngClass]="{'error': isValid('dob')}"
+            type="date" formControlName="dob"  />
+            <ng-container *ngIf="form('dob').invalid && (form('dob').dirty || form('dob').touched)">
+              <p class="error-message" *ngIf="form('dob').errors.required">Field Required</p>
+            </ng-container>
+        </div>
+    </form>
     <div class="grid-10">
       <div>
-          <button>Ok</button>
-          <button (click)='hide()'>Cancel</button>
+          <button [disabled]="isApiCallInProgress" (click)="addForm()" >Ok</button>
+          <button [disabled]="" (click)='hide()'>Cancel</button>
+          <h4 style="margin-left: 12px;" *ngIf="isApiCallInProgress">Loading...</h4>
       </div>
     </div>
   </div>

@@ -23,13 +23,14 @@
     <div class="custom-table-data">
         <custom-table-row
           *ngFor="let employee of listEmployee"
+          (delete)="deleteEmployee(employee.id)"
           [employee]="employee" >
         </custom-table-row>
     </div>
     <div class="pagination">
         <a href="#" (click)="setPaginationBackWard()">&laquo;</a>
         <a href="#" *ngFor="let i of paginationListSlice"
-          [ngClass]="{'active-class': i=== activePaginationIndex }"
+          [ngClass]="{'active-class': i === activePaginationIndex }"
           (click)="setCurrentPagination(i)"
           >{{i}}</a>
         <a href="#" (click)="setPaginationForward()">&raquo;</a>
@@ -39,4 +40,5 @@
 <custom-add-employee
 [visible]='showAddEmployeeDialog'
 (modelClose)="showAddEmployeeDialog=false"
+(employeeAddSuccess)="addNewEmployee($event)"
 ></custom-add-employee>

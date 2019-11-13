@@ -1,5 +1,5 @@
 <div class='custum-table-row'>
-  <div class="custom-table-block">E{{employee.id}}</div>
+  <div class="custom-table-block">{{employee.id}}</div>
   <div class="custom-table-block">{{employee.jobTitleName}} </div>
   <div class="custom-table-block">{{employee.firstName+" "+employee.lastName}}</div>
   <div class="custom-table-block">{{employee.phoneNumber}}</div>
@@ -7,8 +7,6 @@
   <div class="custom-table-block">{{employee.region}}</div>
   <div class="custom-table-block">{{employee.dob}}</div>
   <div class="custom-table-block">
-    <button>edit</button>
-    <button>view</button>
-    <button>delete</button>
+    <button (click)="onDelete(employee.id)">delete</button>
   </div>
 </div>

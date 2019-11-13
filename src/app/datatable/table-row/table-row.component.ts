@@ -6,14 +6,17 @@ import { IEmployee } from 'src/app/types';
   templateUrl: './table-row.component.html',
   styleUrls: ['./table-row.component.scss']
 })
-export class TableRowComponent implements OnInit {
+export class TableRowComponent {
 
   constructor() { }
   @Input('employee') employee: IEmployee;
   @Output('edit') edit = new EventEmitter();
-  @Output('view') view = new EventEmitter();
-  @Output('delete') delete = new EventEmitter();
-  ngOnInit() {
-  }
+  @Output('delete') delete = new EventEmitter<string>();
 
+  public onDelete(id: string) {
+    const con = confirm('Are you sure you want to delete employee?');
+    if (con === true) {
+      this.delete.emit(id);
+    }
+  }
 }

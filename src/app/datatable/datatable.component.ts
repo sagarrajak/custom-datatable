@@ -4,6 +4,7 @@ import { IEmployee, IHeaders } from '../types';
 import { Subscription, fromEvent } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged, filter } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'custom-main-datatable',
@@ -12,7 +13,7 @@ import { FormControl } from '@angular/forms';
 })
 export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private subscription: Subscription;
   public listEmployee: IEmployee[] = []; // table which is currenty vissible
@@ -159,4 +160,22 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showAddEmployeeDialog = true;
   }
 
+  addNewEmployee(employee: IEmployee) {
+    this.backupListEmployee.push(employee);
+    this.searchBackupEmployee.push(employee);
+    employee.dob = moment(employee.dob, 'YYYY-MM-DD').format('DD/MM/YYYY');
+    this.setPaginationFirstTime();
+  }
+
+  deleteEmployee(id: string) {
+    const indexMain = this.backupListEmployee.findIndex(employee => employee.id === id);
+    const indexSearchBackup = this.searchBackupEmployee.findIndex(employee => employee.id === id);
+    if (indexMain >= 0) {
+      this.backupListEmployee.splice(indexMain, 1);
+    }
+    if (indexSearchBackup >= 0) {
+      this.searchBackupEmployee.splice(indexSearchBackup);
+    }
+    this.setPaginationFirstTime();
+  }
 }

@@ -26,7 +26,24 @@
       margin: 8px 0;
       box-sizing: border-box;
     }
+
   }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+
+.error {
+  border: 2px solid red;
+}
+.error-message {
+  color: red;
+  font-size:  0.675rem;
+  margin-bottom: 10px;
 }
 
 .show-model {
