@@ -6,6 +6,7 @@ import { debounceTime, map, distinctUntilChanged, filter } from 'rxjs/operators'
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { EmployeeService } from '../employee.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'custom-main-datatable',
@@ -36,6 +37,22 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
       this.http.get<IEmployee[][]>('https://my-json-server.typicode.com/darshanp40/employeedb/employees')
         .subscribe(res => {
           this.backupListEmployee = [...res[0]];
+          if (!environment.production) {
+            for (let i = 0; i < 100000; i++) {
+              this.backupListEmployee.push({
+                id: Math.floor(Math.random() * 100000000) + '',
+                jobTitleName: Math.random().toString(36).substring(7),
+                firstName: Math.random().toString(36).substring(7),
+                lastName: Math.random().toString(36).substring(7),
+                preferredFullName: Math.random().toString(36).substring(7),
+                employeeCode: Math.random().toString(36).substring(7),
+                region: Math.random().toString(36).substring(2),
+                dob: "11/2/2018",
+                phoneNumber: Math.floor(Math.random() * 10000000000000) + ' ',
+                emailAddress: Math.random().toString(36).substring(7) + '@gmail.com',
+              });
+            }
+          }
           this.searchBackupEmployee = [...this.backupListEmployee];
           this.employeeService.Employee = this.searchBackupEmployee;
           this.setPaginationFirstTime();
@@ -123,7 +140,7 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
         distinctUntilChanged(),
         map(data => (data).trim().toLowerCase())
        ).subscribe(query => {
-          if (query) {
+          if (String(query).trim()) {
               this.backupListEmployee =  [...this.searchBackupEmployee.filter((employee: IEmployee) => {
                 if (String(employee.id).toLowerCase().indexOf(query) !== -1 ) { return true; }
                 if (String(employee.jobTitleName).toLowerCase().indexOf(query) !== -1 ) { return true; }
@@ -189,9 +206,11 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
     const indexSearchBackup = this.searchBackupEmployee.findIndex(employee => employee.id === newEmployee.id);
     if (indexMain >= 0) {
       this.backupListEmployee[indexMain] = {...newEmployee};
+      this.backupListEmployee[indexMain].dob = moment(newEmployee.dob, 'YYYY-MM-DD').format('DD/MM/YYYY');
     }
     if (indexSearchBackup >= 0) {
        this.searchBackupEmployee[indexSearchBackup] = {...newEmployee};
+       this.searchBackupEmployee[indexSearchBackup].dob = moment(newEmployee.dob, 'YYYY-MM-DD').format('DD/MM/YYYY');
     }
     this.currentEmployeeForEdit = null;
     this.setPaginationFirstTime();

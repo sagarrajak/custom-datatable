@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
 import { IEmployee } from '../types';
-import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'custom-edit-employee',
@@ -10,7 +10,7 @@ import { EmployeeService } from '../employee.service';
 })
 export class EditEmployeeComponent {
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor() {}
 
   public isVisible: boolean = true;
   @Output() editCancel = new EventEmitter();
@@ -32,6 +32,10 @@ export class EditEmployeeComponent {
             this.employeeForm.get(key).setValue('');
           }
         });
+      if (this.currentEmployee.dob) {
+        this.employeeForm.get('dob').setValue(moment(this.currentEmployee.dob, 'DD/MM/YYYY').format('YYYY-MM-DD'));
+        console.log(this.employeeForm.get('dob').value);
+      }
     } else {
       this.isVisible = false;
     }
