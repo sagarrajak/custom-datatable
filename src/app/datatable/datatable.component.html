@@ -24,6 +24,7 @@
         <custom-table-row
           *ngFor="let employee of listEmployee"
           (delete)="deleteEmployee(employee.id)"
+          (edit)="editEmployee(employee)"
           [employee]="employee" >
         </custom-table-row>
     </div>
@@ -42,3 +43,9 @@
 (modelClose)="showAddEmployeeDialog=false"
 (employeeAddSuccess)="addNewEmployee($event)"
 ></custom-add-employee>
+<custom-edit-employee
+  [currentEmployee]='currentEmployeeForEdit'
+  (editCancel)="currentEmployeeForEdit=null"
+  (employeeEditSuccess)="editEmployeeSuccess($event)"
+>
+</custom-edit-employee>

@@ -1,21 +1,36 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IEmployee } from '../types';
-@Component({
-  selector: 'custom-add-employee',
-  templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.scss']
-})
-export class AddEmployeeComponent {
-  public isVisible: boolean = true;
-  @Output() modelClose = new EventEmitter();
-  @Output() employeeAddSuccess = new EventEmitter<IEmployee>();
-  public isApiCallInProgress: boolean = false;
 
-  @Input('visible')
-  set visibility(value: boolean) {
-    this.isVisible = value;
-    this.employeeForm.reset();
+@Component({
+  selector: 'custom-edit-employee',
+  templateUrl: './edit-employee.component.html',
+  styleUrls: ['./edit-employee.component.scss']
+})
+export class EditEmployeeComponent {
+  public isVisible: boolean = true;
+  @Output() editCancel = new EventEmitter();
+  @Output() employeeEditSuccess = new EventEmitter<IEmployee>();
+  public isApiCallInProgress: boolean = false;
+  public currentEmployee: IEmployee|null = null;
+
+  @Input('currentEmployee')
+  set visibility(value: IEmployee|null) {
+    if (value) {
+      this.isVisible = true;
+      this.employeeForm.reset();
+      this.currentEmployee = value;
+      Object.keys(this.employeeForm.controls)
+      .forEach((key: string) => {
+          if (this.currentEmployee[key]) {
+            this.employeeForm.get(key).setValue(this.currentEmployee[key]);
+          } else {
+            this.employeeForm.get(key).setValue('');
+          }
+      });
+    } else {
+      this.isVisible = false;
+    }
   }
 
   public employeeForm = new FormGroup({
@@ -33,7 +48,7 @@ export class AddEmployeeComponent {
     return this.employeeForm.get(control);
   }
 
-  public addForm(): void {
+  public editForm(): void {
     if (this.employeeForm.invalid) {
       Object.values(this.employeeForm.controls).forEach((control: FormControl) => control.markAsTouched());
       alert('Invalid form');
@@ -41,17 +56,16 @@ export class AddEmployeeComponent {
       this.isApiCallInProgress = true;
       setTimeout(() => {
         this.isApiCallInProgress = false;
-        this.employeeAddSuccess.emit(this.employeeForm.value);
-        alert('Added Successfully');
+        this.employeeEditSuccess.emit(this.employeeForm.value);
+        alert('Employee Update Successfully');
         this.employeeForm.reset();
-        this.hide();
       }, 1500);
     }
   }
 
-  public hide(): void {
+  public cancelEdit(): void {
     this.isVisible = false;
-    this.modelClose.emit();
+    this.editCancel.emit();
   }
 
   public isValid(name: string): boolean {

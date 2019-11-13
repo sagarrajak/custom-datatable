@@ -26,6 +26,7 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
   public paginationListSlice: number[] = [];
 
   public showAddEmployeeDialog: boolean = false;
+  public currentEmployeeForEdit: IEmployee | null = null;
 
   ngOnInit() {
     this.subscription =
@@ -176,6 +177,23 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
     if (indexSearchBackup >= 0) {
       this.searchBackupEmployee.splice(indexSearchBackup);
     }
+    this.setPaginationFirstTime();
+  }
+
+  editEmployee(employee: IEmployee) {
+    this.currentEmployeeForEdit = employee;
+  }
+
+  editEmployeeSuccess(newEmployee: IEmployee) {
+    const indexMain = this.backupListEmployee.findIndex(employee => employee.id === newEmployee.id);
+    const indexSearchBackup = this.searchBackupEmployee.findIndex(employee => employee.id === newEmployee.id);
+    if (indexMain >= 0) {
+      this.backupListEmployee[indexMain] = {...newEmployee};
+    }
+    if (indexSearchBackup >= 0) {
+       this.searchBackupEmployee[indexSearchBackup] = {...newEmployee};
+    }
+    this.currentEmployeeForEdit = null;
     this.setPaginationFirstTime();
   }
 }

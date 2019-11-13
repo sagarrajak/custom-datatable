@@ -8,9 +8,8 @@ import { IEmployee } from 'src/app/types';
 })
 export class TableRowComponent {
 
-  constructor() { }
   @Input('employee') employee: IEmployee;
-  @Output('edit') edit = new EventEmitter();
+  @Output('edit') edit = new EventEmitter<IEmployee>();
   @Output('delete') delete = new EventEmitter<string>();
 
   public onDelete(id: string) {
@@ -19,4 +18,9 @@ export class TableRowComponent {
       this.delete.emit(id);
     }
   }
+
+  public onEdit(employee: IEmployee) {
+    this.edit.emit(employee);
+  }
+
 }
