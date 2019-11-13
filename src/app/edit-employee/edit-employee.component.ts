@@ -5,6 +5,9 @@ import { EmployeeService } from '../employee.service';
 
 
 const validateId = function(control: AbstractControl) {
+  // console.log(this.currentEmployee);
+  // console.log(String(control.value).trim());
+  if (this.currentEmployee && String(control.value).trim() === this.currentEmployee.id + '') { return null; }
   if (this.employeeService.isIdPresent(control.value)) {
     return { validId: true };
   }
