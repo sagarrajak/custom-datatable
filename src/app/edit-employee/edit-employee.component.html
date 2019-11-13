@@ -4,7 +4,7 @@
         <h4>Edit Employee {{currentEmployee ? currentEmployee.preferredFullName: ''}}</h4>
       </div>
       <form [formGroup]='employeeForm' class="row">
-          <div class="grid-5">
+          <!-- <div class="grid-5">
               <label>ID</label>
               <input placeholder="Id"  type="number"
               [ngClass]="{'error': isValid('id')}" formControlName="id" />
@@ -12,8 +12,8 @@
                 <p class="error-message" *ngIf="form('id').errors.required">Field Required</p>
                 <p class="error-message" *ngIf="form('id').errors.validId">Id Alreay There, choose unique</p>
               </ng-container>
-          </div>
-          <div class="grid-4">
+          </div> -->
+          <div class="grid-5">
               <label>First Name</label>
               <input placeholder="First Name"
                 [ngClass]="{'error': isValid('firstName')}"
@@ -22,7 +22,7 @@
                 <p class="error-message" *ngIf="form('firstName').errors.required">Field Required</p>
               </ng-container>
           </div>
-          <div class="grid-4">
+          <div class="grid-5">
               <label>Last Name</label>
               <input placeholder="Last Name"
               [ngClass]="{'error': isValid('lastName')}"

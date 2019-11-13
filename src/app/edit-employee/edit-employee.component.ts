@@ -3,17 +3,6 @@ import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { IEmployee } from '../types';
 import { EmployeeService } from '../employee.service';
 
-
-const validateId = function(control: AbstractControl) {
-  // console.log(this.currentEmployee);
-  // console.log(String(control.value).trim());
-  if (this.currentEmployee && String(control.value).trim() === this.currentEmployee.id + '') { return null; }
-  if (this.employeeService.isIdPresent(control.value)) {
-    return { validId: true };
-  }
-  return null;
-};
-
 @Component({
   selector: 'custom-edit-employee',
   templateUrl: './edit-employee.component.html',
@@ -49,7 +38,6 @@ export class EditEmployeeComponent {
   }
 
   public employeeForm = new FormGroup({
-    id: new FormControl('', [Validators.required, validateId.bind(this) ]),
     jobTitleName: new FormControl('', [Validators.required]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
@@ -73,7 +61,10 @@ export class EditEmployeeComponent {
       this.isApiCallInProgress = true;
       setTimeout(() => {
         this.isApiCallInProgress = false;
-        this.employeeEditSuccess.emit(this.employeeForm.value);
+        this.employeeEditSuccess.emit({
+          id: this.currentEmployee.id,
+          ...this.employeeForm.value
+        });
         alert('Employee Update Successfully');
         this.employeeForm.reset();
       }, 1500);
