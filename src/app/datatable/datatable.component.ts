@@ -37,22 +37,22 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit {
       this.http.get<IEmployee[][]>('https://my-json-server.typicode.com/darshanp40/employeedb/employees')
         .subscribe(res => {
           this.backupListEmployee = [...res[0]];
-          if (!environment.production) {
-            for (let i = 0; i < 100000; i++) {
-              this.backupListEmployee.push({
-                id: Math.floor(Math.random() * 100000000) + '',
-                jobTitleName: Math.random().toString(36).substring(7),
-                firstName: Math.random().toString(36).substring(7),
-                lastName: Math.random().toString(36).substring(7),
-                preferredFullName: Math.random().toString(36).substring(7),
-                employeeCode: Math.random().toString(36).substring(7),
-                region: Math.random().toString(36).substring(2),
-                dob: "11/2/2018",
-                phoneNumber: Math.floor(Math.random() * 10000000000000) + ' ',
-                emailAddress: Math.random().toString(36).substring(7) + '@gmail.com',
-              });
-            }
-          }
+          // if (!environment.production) {
+          //   for (let i = 0; i < 100000; i++) {
+          //     this.backupListEmployee.push({
+          //       id: Math.floor(Math.random() * 100000000) + '',
+          //       jobTitleName: Math.random().toString(36).substring(7),
+          //       firstName: Math.random().toString(36).substring(7),
+          //       lastName: Math.random().toString(36).substring(7),
+          //       preferredFullName: Math.random().toString(36).substring(7),
+          //       employeeCode: Math.random().toString(36).substring(7),
+          //       region: Math.random().toString(36).substring(2),
+          //       dob: "11/2/2018",
+          //       phoneNumber: Math.floor(Math.random() * 10000000000000) + ' ',
+          //       emailAddress: Math.random().toString(36).substring(7) + '@gmail.com',
+          //     });
+          //   }
+          // }
           this.searchBackupEmployee = [...this.backupListEmployee];
           this.employeeService.Employee = this.searchBackupEmployee;
           this.setPaginationFirstTime();
